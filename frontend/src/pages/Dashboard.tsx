@@ -19,7 +19,8 @@ function Dashboard() {
 
   const fetchGenerations = async (token: string) => {
     try {
-      const res = await axios.get('http://localhost:5000/api/generations', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const res = await axios.get(`${apiUrl}/api/generations`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setGenerations(res.data);
@@ -33,7 +34,8 @@ function Dashboard() {
     setLoading(true);
     const token = localStorage.getItem('token');
     try {
-      await axios.post('http://localhost:5000/api/generations', { originalText: textInput }, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${apiUrl}/api/generations`, { originalText: textInput }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTextInput('');
